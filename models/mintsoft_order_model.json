@@ -1,0 +1,99 @@
+{
+  "OrderItems": [
+    {
+      "SKU": "string",
+      "ProductId": 0,
+      "Quantity": 0,
+      "Details": "string",
+      "UnitPrice": 0,
+      "UnitPriceVat": 0,
+      "Discount": 0,
+      "OrderItemNameValues": [
+        {
+          "Name": "string",
+          "Value": "string"
+        }
+      ],
+      "WarehouseId": 0,
+      "RequestedSerialNo": "string",
+      "RequestedBatchNo": "string",
+      "RequestedBBEDate": "string"
+    }
+  ],
+  "OrderNameValues": [
+    {
+      "Name": "string",
+      "Value": "string"
+    }
+  ],
+  "Tags": "string",
+  "ConnectAction": {
+    "Type": "string",
+    "SourceOrderId": "string",
+    "Complete": true,
+    "AccountId": 0,
+    "ExtraCode1": "string",
+    "ExtraCode2": "string",
+    "ExtraCode3": "string",
+    "ExtraCode4": "string",
+    "ExtraCode5": "string",
+    "ExtraFlag1": true,
+    "ExtraFlag2": true,
+    "Messages": "string",
+    "ExtraDate1": "2025-12-09T21:06:54.723Z",
+    "Return": true,
+    "ReturnComplete": true
+  },
+  "OrderNumber": "string",
+  "ExternalOrderReference": "string",
+  "Title": "string",
+  "CompanyName": "string",
+  "FirstName": "string",
+  "LastName": "string",
+  "Address1": "string",
+  "Address2": "string",
+  "Address3": "string",
+  "Town": "string",
+  "County": "string",
+  "PostCode": "string",
+  "Country": "string",
+  "CountryId": 0,
+  "Email": "string",
+  "Phone": "string",
+  "Mobile": "string",
+  "CourierService": "string",
+  "CourierServiceId": 0,
+  "Channel": "string",
+  "ChannelId": 0,
+  "Warehouse": "string",
+  "WarehouseId": 0,
+  "Currency": "string",
+  "CurrencyId": 0,
+  "DeliveryDate": "2025-12-09T21:06:54.723Z",
+  "DespatchDate": "2025-12-09T21:06:54.723Z",
+  "RequiredDeliveryDate": "2025-12-09T21:06:54.723Z",
+  "RequiredDespatchDate": "2025-12-09T21:06:54.723Z",
+  "Comments": "string",
+  "DeliveryNotes": "string",
+  "GiftMessages": "string",
+  "VATNumber": "string",
+  "EORINumber": "string",
+  "PIDNumber": "string",
+  "UKIMSNumber": "string",
+  "RFCNumber": "string",
+  "IOSSNumber": "string",
+  "OrderValue": 0,
+  "ShippingTotalExVat": 0,
+  "ShippingTotalVat": 0,
+  "DiscountTotalExVat": 0,
+  "DiscountTotalVat": 0,
+  "TotalVat": 0,
+  "ClientId": 0,
+  "NumberOfParcels": 0,
+  "CashOnDelivery": {
+    "Amount": 0,
+    "CurrencyCode": "string"
+  },
+  "RecipientType": "string",
+  "NationalAddressField": "string"
+}
