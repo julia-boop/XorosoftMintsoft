@@ -3,6 +3,7 @@ import base64
 import requests
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 class XoroSoftProductClient:

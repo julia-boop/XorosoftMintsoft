@@ -32,6 +32,21 @@ class MintsoftProductClient:
             "ms-apikey": self.api_key,
             "Content-Type": "application/json"
         }
+    
+    def get_products_updated_since(self, since, page=1, limit=100):
+        url = f"{self.base_url}/Product/List"
+        params = {
+            "PageNo": page,
+            "Limit": limit,
+            "ClientId": os.getenv("MINTSOFT_CLIENT_ID"),
+            "SinceLastUpdated": since
+        }
+        response = requests.get(url, headers=self._headers(), params=params)
+
+        if response.status_code != 200:
+            raise Exception(response.text)
+
+        return response.json()
 
     def create_product(self, product_json):
         url = f"{self.base_url}/Product"
