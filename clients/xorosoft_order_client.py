@@ -13,10 +13,12 @@ class XoroClient:
         }
 
     def get_orders(self, status="released"):
-        url = f"{self.BASE_URL}/api/xerp/salesorder/getsalesorder"
+        url = f"{self.BASE_URL}/api/xerp/wave/getwave?page=1"
         params = {"status": status}
 
         response = requests.get(url, headers=self.auth_header, params=params)
         response.raise_for_status()
 
         return response.json()
+    
+

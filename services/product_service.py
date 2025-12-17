@@ -15,7 +15,7 @@ sys.path.insert(0, ROOT)
 FMT = "%m/%d/%Y %I:%M:%S %p"
 
 STATE_DIR = os.path.join(ROOT, "state")
-STATE_FILE = os.path.join(STATE_DIR, "product_sync_state.json")
+STATE_FILE = os.path.join(STATE_DIR, "sync_state.json")
 os.makedirs(STATE_DIR, exist_ok=True)
 
 
