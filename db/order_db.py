@@ -22,7 +22,7 @@ class OrderDB:
         """)
         self.conn.commit()
 
-    def upsert_order(self, source, external_id, status, created_at, updated_at, payload):
+    def upsert(self, source, external_id, status, created_at, updated_at, payload):
         self.conn.execute("""
         INSERT INTO orders (source, external_id, status, created_at, updated_at, payload)
         VALUES (?, ?, ?, ?, ?, ?)

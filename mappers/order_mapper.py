@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def map_wave_to_mintsoft(order):
+def map_xoro_order_to_mintsoft(order):
     order_data = order["OrderData"]    
     wave_data = order["WaveData"]      
 

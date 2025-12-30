@@ -2,7 +2,7 @@ import requests
 import base64
 import json
 
-class XoroClient:
+class XorosoftOrderClient:
 
     BASE_URL = "https://res.xorosoft.io"
 

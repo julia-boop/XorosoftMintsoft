@@ -1,7 +1,7 @@
 import sys
 import os
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from clients.xorosoft_product_client import XoroSoftProductClient
 from clients.mintsoft_product_client import MintsoftProductClient
 from mappers.product_mapper import map_xoro_item_to_mintsoft
@@ -85,7 +85,8 @@ class ProductSyncService:
         last_created_at = iso_to_xorosoft(created_iso) if created_iso else None
         last_updated_at = iso_to_xorosoft(updated_iso) if updated_iso else None
 
-        cutoff = datetime.now(timezone.utc).strftime(FMT)
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=3)).isoformat()
+        print(cutoff)
 
         product_logger.info(
             "Delta window | created_at: %s → %s | updated_at: %s → %s",
