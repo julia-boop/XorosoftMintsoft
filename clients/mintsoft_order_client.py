@@ -53,4 +53,37 @@ class MintsoftOrderClient:
 
         return response.json()
     
+    def get_asns(self):
+        url = f"{self.BASE_URL}/api/ASN/List?ClientId=4"
+
+        response = requests.get(url, headers=self._headers())
+        response.raise_for_status()
+
+        return(response.json())
+
+    def create_asn(self, data):
+        url = f"{self.BASE_URL}/api/ASN"
+
+        response = requests.put(url, json=data, headers=self._headers())
+        response.raise_for_status()
+
+        return response
+
     
+    
+# try:
+#     client = MintsoftOrderClient()
+
+#     asn_list = client.get_asns()
+
+#     array = []
+
+#     for asn in asn_list:
+#         array.append({
+#             "POReference": asn.get("POReference")
+#         })
+
+#     print(array)
+
+# except Exception as e:
+#     print(e)

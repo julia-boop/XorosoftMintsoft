@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
-from services.product_service import ProductSyncService
+from XorosoftMintsoft.services.product_service import ProductSyncService
 
 service = ProductSyncService()
 

@@ -58,37 +58,13 @@ class MintsoftProductClient:
 
         return response.json()
 
-    def get_all_products(self):
-        all_products = []
-        page = 1
-        limit = 100
+    def get_products(self, params):
 
-        while True:
-            url = f"{self.base_url}/Product/List"
-            params = {
-                "PageNo": page,
-                "Limit": limit,
-                "ClientId": os.getenv("MINTSOFT_CLIENT_ID")
-            }
+        url = f"{self.base_url}/Product/List?PageNo={params.get("PageNo")}&Limit=100&ClientId={params.get("ClientId")}"
 
-            response = requests.get(url, headers=self._headers(), params=params)
-
-            if response.status_code != 200:
-                print("STATUS:", response.status_code)
-                print("RESPONSE:", response.text)
-                raise Exception("Error fetching products from Mintsoft")
-
-            batch = response.json()
-
-            if not batch:
-                break
-
-            all_products.extend(batch)
-            print(f"Fetched page {page}: {len(batch)} products")
-            page += 1
-
-        print(f"Total Mintsoft products fetched: {len(all_products)}")
-        return all_products
+        response = requests.get(url, headers = self._headers(), timeout = 30)
+            
+        return response.json()
 
     def update_product(self, product_id, payload):
         payload = dict(payload)  
@@ -104,3 +80,19 @@ class MintsoftProductClient:
             )
 
         return response.json() if response.text else {}
+    
+    def get_product_id(self, sku:str):
+        url = f"{self.base_url}/Product/Search?Search={sku}"
+
+        r = requests.get(
+            url,
+            headers=self._headers(),
+            timeout=30,
+        )
+
+        r.raise_for_status()
+        data = r.json()
+        product_id = data[0]["ID"] if data else None
+        print(f"Product ID for SKU {sku}: {product_id}")
+        return product_id
+    

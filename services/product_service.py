@@ -194,3 +194,70 @@ class ProductSyncService:
         )
 
         return stats
+    
+    def extract_mintsoft_catalog(self):
+        # Extraer catalogo de Mintsoft
+
+        mintsoft_products = []
+        current_page = 1
+        
+        while True:
+            print(f"Consultando pagina {current_page}")
+
+            params = {
+                "PageNo": current_page,
+                "ClientId": 4,
+                "SinceLastUpdated": "2026-01-18T00:00:00.000"
+            }
+
+            products_in_page = self.mint.get_products(params)
+
+            if not products_in_page:
+                print("Empty Page")
+                break
+
+            for product in products_in_page:
+                mintsoft_products.append(product.get("SKU"))
+
+            if len(products_in_page) != 100:
+                print("Last Page Reached")
+                break
+
+            current_page += 1
+
+        return mintsoft_products
+    
+    def extract_xorosoft_catalog(self):
+        # Extraer catalogo de Xorosoft
+
+        xorosoft_products = []
+
+        params = {
+            "CreatedAtMin": "01/18/2026"
+        }
+
+        data = self.xoro.get_products(params)
+        products_in_page = data["Data"]
+
+        for product in products_in_page:
+            xorosoft_products.append(product.get("ItemNumber"))
+
+        return xorosoft_products
+    
+        
+
+try:
+
+    client = ProductSyncService()
+
+    # mintsoft_products = client.extract_mintsoft_catalog()
+    xorosoft_products = client.extract_xorosoft_catalog()
+
+    missing_products = set(xorosoft_products) #- set(mintsoft_products)
+
+    print(xorosoft_products)
+
+except Exception as e:
+    print(e)
+            
+

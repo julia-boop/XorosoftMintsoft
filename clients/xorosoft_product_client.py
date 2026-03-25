@@ -41,3 +41,12 @@ class XoroSoftProductClient:
 
         data = response.json().get("Data", [])
         return data
+    
+    def get_products(self, params):
+        url = f"{self.base_url}/api/xerp/product/item/getitem"
+
+        if params:
+            url += f"?created_at_min={params.get("CreatedAtMin")}"
+
+        response = requests.get(url, headers = self._headers(), timeout = 60)
+        return response.json()
