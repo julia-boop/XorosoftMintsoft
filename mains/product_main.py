@@ -1,7 +1,7 @@
 import sys
 import os
 from datetime import datetime
-from db import get_existing_items, upsert_product, get_connection, log_product_sync
+from db import get_existing_items, upsert_product, get_connection, log_product_sync, alter_description
 from services.product_service import ProductSyncService
 
 service = ProductSyncService()
@@ -10,6 +10,8 @@ def run_product_sync():
 
     print("Extracting Latest Updates to the Xorosoft Catalog")
     xorosoft_items = service.extract_xorosoft_catalog()
+
+    alter_description()
 
     if xorosoft_items: # Si hay algun cambio
         conn = get_connection()

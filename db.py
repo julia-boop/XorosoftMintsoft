@@ -75,3 +75,8 @@ def get_existing_items():
     cursor.close()
     conn.close()
     return products_dict
+
+def alter_description():
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("ALTER TABLE mintsoft_holiday_products ALTER COLUMN description TYPE TEXT")
