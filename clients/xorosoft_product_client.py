@@ -43,7 +43,7 @@ class XoroSoftProductClient:
         return data
     
     def get_products(self, params):
-        url = f"{self.base_url}/api/xerp/product/item/getitem?item_number=BT26157-1-BLK-XS"
+        url = f"{self.base_url}/api/xerp/product/item/getitem?item_number=BT26025-1-LPNK-M"
 
         # if params.get("UpdatedAtMin"):
         #     url += f"?page={params.get("PageNo")}&updated_at_min={params.get("UpdatedAtMin")}"

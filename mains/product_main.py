@@ -11,8 +11,6 @@ def run_product_sync():
     print("Extracting Latest Updates to the Xorosoft Catalog")
     xorosoft_items = service.extract_xorosoft_catalog()
 
-    alter_upc()
-
     if xorosoft_items: # Si hay algun cambio
         conn = get_connection()
         cursor = conn.cursor() # Ejecutor de los comandos de SQL en la db
