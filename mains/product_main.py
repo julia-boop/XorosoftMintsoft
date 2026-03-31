@@ -1,7 +1,7 @@
 import sys
 import os
 from datetime import datetime
-from XorosoftMintsoft.clients.db_service import DataBaseClient
+from clients.db_service import DataBaseClient
 from services.product_service import ProductSyncService
 
 product_service = ProductSyncService()
