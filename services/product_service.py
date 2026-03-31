@@ -60,8 +60,6 @@ class ProductSyncService:
                     "CommodityCode": product.get("HSCode")
                 }
                 xorosoft_items.append(product_data)
-            
-            print(len(products_in_page))
 
             if len(products_in_page) != 100:
                 print("Last Page Reached")
@@ -113,13 +111,4 @@ class ProductSyncService:
     
         return None
 
-try:
-    client = ProductSyncService()
-
-    data = client.extract_xorosoft_catalog()
-
-    print(data)
-
-except Exception as e:
-    print(e)
 

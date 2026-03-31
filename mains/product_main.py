@@ -16,7 +16,7 @@ def run_product_sync():
         conn = get_connection()
         cursor = conn.cursor() # Ejecutor de los comandos de SQL en la db
 
-        print(f"A total of {len(xorosoft_items)} SKUs have been added/updated")
+        print(f"A total of {len(xorosoft_items)} SKUs have been added/updated to XoroSoft")
 
         print("Extracting Mintsoft information from the Railway DB")
         mintsoft_items = get_existing_items()
@@ -26,14 +26,15 @@ def run_product_sync():
 
         for item in xorosoft_items:
             if item.get("SKU") not in mintsoft_items: # Si es nuevo
+                print(f'Creating SKU {item.get("SKU")} in Mintsoft')
                 service.create_missing_mintsoft_products(item)
                 created += 1
 
                 upsert_product(cursor, item)
             
             else : # Si ya existe
-                # Comparo los campos que estan cargados en la base de datos
-                current_db_item = mintsoft_items[sku]
+                # Comparo los campos que estan cargados en la base de datos para ese sku
+                current_db_item = mintsoft_items[item.get("SKU")]
 
                 has_changed = (
                     str(item.get("Upc")).strip() != str(current_db_item.get("upc")).strip() or
@@ -43,6 +44,7 @@ def run_product_sync():
                 )
                 
                 if has_changed:
+                    print(f'SKU {item.get("SKU")} already exists in Mintsoft but has been updated')
                     service.update_missing_mintsoft_products(item)
                     updated += 1
 
