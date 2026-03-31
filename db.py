@@ -38,7 +38,7 @@ def initialize_db():
 def upsert_product(cursor, product): # Agrega y actualiza productos en la tabla
     cursor.execute("""
         INSERT INTO mintsoft_holiday_products (sku, name, upc, price, image_url, last_updated, description)
-        VALUES (%s, %s, %s, %s, %s, NOW())
+        VALUES (%s, %s, %s, %s, %s, NOW(), %s)
         ON CONFLICT (sku) DO UPDATE SET
             name = EXCLUDED.name,
             upc = EXCLUDED.upc,
@@ -70,8 +70,6 @@ def get_existing_items():
     cursor.execute("SELECT * FROM mintsoft_holiday_products")
     rows = cursor.fetchall()
     
-    # Creamos un diccionario donde la clave es el SKU
-    # { 'SKU123': {'ean': '...', 'price': 10.0, ...}, 'SKU456': {...} }
     products_dict = {row['sku']: row for row in rows}
     
     cursor.close()
