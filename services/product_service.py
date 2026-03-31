@@ -108,7 +108,7 @@ class ProductSyncService:
             "Price": item_data.get("Price"),
         }
 
-        response = self.mint.create_product(product_json)
+        response = self.mint.update_product(product_json)
         print(response)
     
         return None
