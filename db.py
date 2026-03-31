@@ -1,5 +1,6 @@
 import os
 import psycopg2
+from psycopg2.extras import RealDictCursor
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -37,18 +38,43 @@ def initialize_db():
 
 def upsert_product(cursor, product): # Agrega y actualiza productos en la tabla
     cursor.execute("""
-        INSERT INTO mintsoft_holiday_products (sku, name, upc, price, image_url, last_updated)
+        INSERT INTO mintsoft_holiday_products (sku, name, upc, price, image_url, last_updated, description)
         VALUES (%s, %s, %s, %s, %s, NOW())
         ON CONFLICT (sku) DO UPDATE SET
             name = EXCLUDED.name,
             upc = EXCLUDED.upc,
             price = EXCLUDED.price,
             image_url = EXCLUDED.image_url,
-            last_updated = NOW()
+            last_updated = NOW(),
+            description = EXCLUDED.description
         """, (
-            product.get("ItemNumber"),
+            product.get("SKU"),
+            product.get("Name"),
+            product.get("Upc"),
+            product.get("Price"),
+            product.get("ImageURL"),
             product.get("Description"),
-            product.get("ItemUPC"),
-            product.get("StandardUnitPrice"),
-            product.get("ImagePath")
         ))
+
+def log_product_sync(cursor, created, updated):
+    cursor.execute("""
+        INSERT INTO sync_log (products_created, products_updated)
+        VALUES (%s, %s)
+    """, (
+        created,
+        updated,
+    ))
+     
+def get_existing_items():
+    conn = get_connection()
+    cursor = conn.cursor(cursor_factory=RealDictCursor) # Diccionario para facilitar comparacion
+    cursor.execute("SELECT * FROM mintsoft_holiday_products")
+    rows = cursor.fetchall()
+    
+    # Creamos un diccionario donde la clave es el SKU
+    # { 'SKU123': {'ean': '...', 'price': 10.0, ...}, 'SKU456': {...} }
+    products_dict = {row['sku']: row for row in rows}
+    
+    cursor.close()
+    conn.close()
+    return products_dict
