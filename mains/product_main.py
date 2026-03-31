@@ -28,6 +28,8 @@ def run_product_sync():
             if item.get("SKU") not in mintsoft_items: # Si es nuevo
                 service.create_missing_mintsoft_products(item)
                 created += 1
+
+                upsert_product(cursor, item)
             
             else : # Si ya existe
                 # Comparo los campos que estan cargados en la base de datos
@@ -44,7 +46,7 @@ def run_product_sync():
                     service.update_missing_mintsoft_products(item)
                     updated += 1
 
-            upsert_product(cursor, item)
+                    upsert_product(cursor, item)
 
         log_product_sync(cursor, created, updated)
 

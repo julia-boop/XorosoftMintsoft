@@ -43,13 +43,13 @@ class XoroSoftProductClient:
         return data
     
     def get_products(self, params):
-        url = f"{self.base_url}/api/xerp/product/item/getitem"
+        url = f"{self.base_url}/api/xerp/product/item/getitem?item_number=BT26157-1-BLK-XS"
 
-        if params.get("UpdatedAtMin"):
-            url += f"?page={params.get("PageNo")}&updated_at_min={params.get("UpdatedAtMin")}"
+        # if params.get("UpdatedAtMin"):
+        #     url += f"?page={params.get("PageNo")}&updated_at_min={params.get("UpdatedAtMin")}"
 
-        if params.get("MissingSKUs"):
-            url += f"?page={params.get("PageNo")}&item_number={params.get("MissingSKUs")}"
+        # if params.get("MissingSKUs"):
+        #     url += f"?page={params.get("PageNo")}&item_number={params.get("MissingSKUs")}"
 
         response = requests.get(url, headers = self._headers(), timeout = 60)
 

@@ -37,7 +37,7 @@ class ProductSyncService:
 
             params = {
                 "PageNo": current_page,
-                "UpdatedAtMin": "2026-03-31 00:00:00AM"
+                "UpdatedAtMin": "2026-03-30 7:00:00PM"
             }
 
             data = self.xoro.get_products(params)
