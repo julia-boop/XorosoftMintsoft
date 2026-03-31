@@ -96,10 +96,10 @@ class ProductSyncService:
         return None
     
     def update_missing_mintsoft_products(self, item_data):
-
+        product_id = self.mint.get_product_id(item_data.get("SKU"))
         product_json = {
             "ClientId": 4,
-            "ProductId": self.mint.get_product_id(item_data.get("SKU")),
+            "ProductId": product_id,
             "SKU": item_data.get("SKU"),
             "Name": item_data.get("Name"),
             "EAN": item_data.get("Upc"),
@@ -108,7 +108,7 @@ class ProductSyncService:
             "Price": item_data.get("Price"),
         }
 
-        response = self.mint.update_product(product_json)
+        response = self.mint.update_product(product_id, product_json)
         print(response)
     
         return None
