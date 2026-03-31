@@ -32,12 +32,16 @@ class ProductSyncService:
         xorosoft_items = []
         current_page = 1
 
+        now = datetime.now()
+        now_minus_1h = now - timedelta(hours=1)
+        update_time = now_minus_1h.strftime("%m/%d/%Y %I:%M:%S %p")
+
         while True:
             print(f"Consultando pagina {current_page}")
 
             params = {
                 "PageNo": current_page,
-                "UpdatedAtMin": "2026-03-30 7:00:00PM"
+                "UpdatedAtMin": update_time
             }
 
             data = self.xoro.get_products(params)
