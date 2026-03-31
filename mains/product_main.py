@@ -1,24 +1,25 @@
 import sys
 import os
 from datetime import datetime
-from db import get_existing_items, upsert_product, get_connection, log_product_sync, alter_upc
+from XorosoftMintsoft.clients.db_service import DataBaseClient
 from services.product_service import ProductSyncService
 
-service = ProductSyncService()
+product_service = ProductSyncService()
+db_service = DataBaseClient()
 
 def run_product_sync():
 
     print("Extracting Latest Updates to the Xorosoft Catalog")
-    xorosoft_items = service.extract_xorosoft_catalog()
+    xorosoft_items = product_service.extract_xorosoft_catalog()
 
     if xorosoft_items: # Si hay algun cambio
-        conn = get_connection()
+        conn = db_service.get_connection()
         cursor = conn.cursor() # Ejecutor de los comandos de SQL en la db
 
         print(f"A total of {len(xorosoft_items)} SKUs have been added/updated in XoroSoft")
 
         print("Extracting Mintsoft information from the Railway DB")
-        mintsoft_items = get_existing_items()
+        mintsoft_items = db_service.get_existing_items()
 
         created = 0
         updated = 0
@@ -26,10 +27,10 @@ def run_product_sync():
         for item in xorosoft_items:
             if item.get("SKU") not in mintsoft_items: # Si es nuevo
                 print(f'Creating SKU {item.get("SKU")} in Mintsoft')
-                service.create_missing_mintsoft_products(item)
+                product_service.create_missing_mintsoft_products(item)
                 created += 1
 
-                upsert_product(cursor, item)
+                db_service.upsert_product(cursor, item)
             
             else : # Si ya existe
                 # Comparo los campos que estan cargados en la base de datos para ese sku
@@ -44,12 +45,12 @@ def run_product_sync():
                 
                 if has_changed:
                     print(f'SKU {item.get("SKU")} already exists in Mintsoft but has been updated')
-                    service.update_missing_mintsoft_products(item)
+                    product_service.update_missing_mintsoft_products(item)
                     updated += 1
 
-                    upsert_product(cursor, item)
+                    db_service.upsert_product(cursor, item)
 
-        log_product_sync(cursor, created, updated)
+        db_service.log_product_sync(cursor, created, updated)
 
         conn.commit()
         cursor.close()
