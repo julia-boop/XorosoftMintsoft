@@ -6,7 +6,6 @@ from services.product_service import ProductSyncService
 
 service = ProductSyncService()
 
-
 def run_product_sync():
 
     print("Extracting Latest Updates to the Xorosoft Catalog")
@@ -16,7 +15,7 @@ def run_product_sync():
         conn = get_connection()
         cursor = conn.cursor() # Ejecutor de los comandos de SQL en la db
 
-        print(f"A total of {len(xorosoft_items)} SKUs have been added/updated to XoroSoft")
+        print(f"A total of {len(xorosoft_items)} SKUs have been added/updated in XoroSoft")
 
         print("Extracting Mintsoft information from the Railway DB")
         mintsoft_items = get_existing_items()
