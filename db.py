@@ -80,3 +80,8 @@ def alter_upc():
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("ALTER TABLE mintsoft_holiday_products ALTER COLUMN upc TYPE VARCHAR(50)")
+    cursor.execute("ALTER TABLE mintsoft_holiday_products ALTER COLUMN description TYPE TEXT")
+    
+    conn.commit()
+    cursor.close()
+    conn.close()
