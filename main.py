@@ -13,8 +13,8 @@ def seed_from_csv(filepath):
         reader = csv.DictReader(file)
         for row in reader:
             cursor.execute("""
-                INSERT INTO mintsoft_holiday_products (sku, name, upc, price, image_url)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO mintsoft_holiday_products (sku, name, upc, price, image_url, last_updated)
+                VALUES (%s, %s, %s, %s, %s, NOW())
                 ON CONFLICT (sku) DO NOTHING
             """, (
                 row.get("SKU"),
@@ -29,8 +29,6 @@ def seed_from_csv(filepath):
     conn.close()
 
 try:
-    
-    initialize_db()
 
     seed_from_csv("holiday_stock.csv")
 
