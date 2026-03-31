@@ -2,7 +2,7 @@ import sys
 import os
 from datetime import datetime
 from db import get_existing_items, upsert_product, get_connection, log_product_sync
-from XorosoftMintsoft.services.product_service import ProductSyncService
+from services.product_service import ProductSyncService
 
 service = ProductSyncService()
 

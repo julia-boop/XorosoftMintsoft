@@ -1,7 +1,6 @@
 from mains.product_main import run_product_sync
-from mains.order_main import run_order_sync
-from mains.shipment_main import run_shipment_sync
-from db import get_connection
+# from mains.order_main import run_order_sync
+# from mains.shipment_main import run_shipment_sync
 
 
 
