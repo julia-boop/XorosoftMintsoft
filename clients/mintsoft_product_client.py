@@ -62,7 +62,10 @@ class MintsoftProductClient:
 
         url = f"{self.base_url}/Product/List?PageNo={params.get("PageNo")}&Limit=100&ClientId={params.get("ClientId")}"
 
-        response = requests.get(url, headers = self._headers(), timeout = 30)
+        if params.get("SinceLastUpdated"):
+            url += f"&SinceLastUpdated={params.get("SinceLastUpdated")}"
+        
+        response = requests.get(url, headers = self._headers(), timeout = 60)
             
         return response.json()
 

@@ -5,9 +5,6 @@ from datetime import datetime, timezone
 from clients.xorosoft_order_client import XorosoftOrderClient
 from clients.mintsoft_order_client import MintsoftOrderClient
 from clients.mintsoft_product_client import MintsoftProductClient
-from mappers.order_mapper import map_xoro_order_to_mintsoft
-from loggers.order_logger import order_logger
-from utils.datetime_util import iso_to_xorosoft, xorosoft_to_iso
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)

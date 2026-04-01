@@ -72,46 +72,4 @@ class XorosoftOrderClient:
     
     
 
-# try:
-#     client = XorosoftOrderClient()
-
-#     asns = client.get_asns()
-
-#     # waves = client.get_waves("USA-W007006")
-#     # order_data = waves["Data"]["OrderData"][0]
-#     # order_number = order_data.get("OrderNumber")
-
-#     # order = client.get_order_details(order_number)
-#     # order_details = order["Data"][0]
-#     # order_items = order_details["SoEstimateItemLineArr"]
-
-#     # array = []
-
-#     # for item in order_items:
-#     #     item_sku = item.get("ItemNumber")
-#     #     quantity = item.get("Qty")
-
-#     #     array.append({
-#     #         "Sku": item_sku,
-#     #         "Quantity": quantity
-#     #     })
-
-#     # data = asns["Data"][0]
-#     # asnitems = data.get("AsnDetailData")
-#     # asninfo = data.get("AsnHeaderData")
-#     # array = []
-
-#     # for item in asnitems:
-#     #     array.append({
-#     #         "sku": item.get("ItemNumber"),
-#     #         "quantity": item.get("BaseQtyToReceive")
-#     #     })
-    
-#     # print(asninfo.get("AsnNumber"))
-#     # print(asninfo.get("DeliveryDate"))
-#     # print(array)
-    
-# except Exception as e:
-#     print(e)
-
 
