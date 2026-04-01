@@ -44,11 +44,14 @@ def run_product_sync():
                 )
                 
                 if has_changed:
-                    print(f'SKU {item.get("SKU")} already exists in Mintsoft but has been updated')
+                    print(f'SKU {item.get("SKU")} already exists in Mintsoft, it has been updated')
                     product_service.update_missing_mintsoft_products(item)
                     updated += 1
 
                     db_service.upsert_product(cursor, item)
+                
+                else:
+                    print(f'SKU {item.get("SKU")} already exists in Mintsoft, there were no relevant updates to it')
 
         db_service.log_product_sync(cursor, created, updated)
 

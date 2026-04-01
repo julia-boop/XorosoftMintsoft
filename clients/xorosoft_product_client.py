@@ -48,9 +48,6 @@ class XoroSoftProductClient:
         if params.get("UpdatedAtMin"):
             url += f"?page={params.get("PageNo")}&updated_at_min={params.get("UpdatedAtMin")}"
 
-        if params.get("MissingSKUs"):
-            url += f"?page={params.get("PageNo")}&item_number={params.get("MissingSKUs")}"
-
         response = requests.get(url, headers = self._headers(), timeout = 60)
 
         return response.json()

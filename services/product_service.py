@@ -2,14 +2,9 @@ import sys
 import os
 import json
 import csv
-from datetime import datetime, timezone, timedelta
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
+from datetime import datetime, timedelta
 from clients.xorosoft_product_client import XoroSoftProductClient
 from clients.mintsoft_product_client import MintsoftProductClient
-# from db.product_db import ProductDB
-from utils.datetime_util import iso_to_xorosoft, xorosoft_to_iso
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -41,7 +36,7 @@ class ProductSyncService:
 
             params = {
                 "PageNo": current_page,
-                "UpdatedAtMin": update_time
+                "UpdatedAtMin": "03/31/2026 08:55:27 PM"
             }
 
             data = self.xoro.get_products(params)

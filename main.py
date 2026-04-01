@@ -8,9 +8,9 @@ try:
     print("Executing Product Sync")
     run_product_sync()
 
-    print("Executing ASN Sync")
+    #print("Executing ASN Sync")
 
-    print("Executing Order Sync")
+    #print("Executing Order Sync")
     
 
 except Exception as e:
