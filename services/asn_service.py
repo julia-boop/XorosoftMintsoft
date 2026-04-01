@@ -23,30 +23,6 @@ class AsnSyncService:
         self.mint_o = MintsoftOrderClient()
         self.mint_p = MintsoftProductClient()
 
-    def _load_asn_sync_state(self):
-        if not os.path.exists(STATE_FILE):
-            return {
-                "orders": {
-                    "created_at": None,
-                    "updated_at": None
-                }
-            }
-
-        with open(STATE_FILE, "r") as f:
-            return json.load(f)
-
-    def _save_asn_sync_state(self, created_at=None, updated_at=None):
-        state = self._load_order_sync_state()
-        state.setdefault("orders", {})
-
-        if created_at:
-            state["orders"]["created_at"] = created_at
-        if updated_at:
-            state["orders"]["updated_at"] = updated_at
-
-        with open(STATE_FILE, "w") as f:
-            json.dump(state, f, indent=4)
-
     def check_missing_mint_asns(self):
         # Traigo ASNs de Mint y guardo el POReference
         mintsoft_asns = self.mint_o.get_asns()
@@ -81,9 +57,7 @@ class AsnSyncService:
 
         return asns_to_sync
     
-    def sync_asns(self, data: list):
-        asns_to_sync = data
-
+    def sync_asns(self, asns_to_sync: list):
         for asn in asns_to_sync:
             asn_info = asn.get("AsnHeaderData") # Info del ASN
 
@@ -129,11 +103,8 @@ try:
 
     print("Sincronizando ASNs")
     print(asns_to_sync)
-    response = client.sync_asns(asns_to_sync)
-    print(response.text)
-
-
-    
+    #response = client.sync_asns(asns_to_sync)
+    #print(response.text)
 
 except Exception as e:
     print (e)

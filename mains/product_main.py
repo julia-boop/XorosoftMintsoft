@@ -1,11 +1,11 @@
 import sys
 import os
 from datetime import datetime
-from clients.db_service import DataBaseClient
+from clients.db_client import DatabaseClient
 from services.product_service import ProductSyncService
 
 product_service = ProductSyncService()
-db_service = DataBaseClient()
+db_service = DatabaseClient()
 
 def run_product_sync():
 

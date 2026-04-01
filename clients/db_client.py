@@ -4,7 +4,7 @@ from psycopg2.extras import RealDictCursor
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-class DataBaseClient:
+class DatabaseClient:
     def get_connection(self):
         return psycopg2.connect(DATABASE_URL)
 

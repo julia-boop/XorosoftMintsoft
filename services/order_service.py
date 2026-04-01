@@ -105,7 +105,7 @@ class OrderSyncService:
             #Analizar este caso
         print(orders_o)  
         html_message = generar_html_reporte_creacion_ordenes(cargados_ok, cargados_errores)
-        enviar_reporte_email(html_message, ["ngurfinkel@the5411.com" ], "Órdenes Holiday Xorosoft en Mintsoft")
+        enviar_reporte_email(html_message, ["ngurfinkel@the5411.com", "bgallo@the5411.com" ], "Órdenes Holiday Xorosoft en Mintsoft")
 
         
 
