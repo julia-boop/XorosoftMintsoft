@@ -2,6 +2,7 @@ import requests
 import base64
 import json
 import pandas as ps
+import sys
 
 class XorosoftOrderClient:
 
@@ -23,6 +24,26 @@ class XorosoftOrderClient:
         response.raise_for_status()
 
         return response.json()
+    
+    def get_waves_since(self, page, created_at_min, created_at_max):
+        #Chequear si cambiar Allocated a Released
+        #Chequear si created_at_max tiene sentido 
+        #iterar por las pages
+        #Cambiar formato de fecha al que acepte 
+        #respuestas = []
+        #orders = []
+        try:
+            #Chquear con ordenes nuevas 
+            
+            url = f"{self.BASE_URL}/api/xerp/wave/getwave?created_at_min={created_at_min}&created_at_max={created_at_max}&status=[Allocated]&page={page}"
+            print("url", url)
+            response=requests.get(url, headers=self.auth_header)
+            data_json = response.json()
+            
+        except Exception as e:
+            print(e)
+
+        return data_json
     
     def get_order_details(self, order_number):
         url = f"{self.BASE_URL}/api/xerp/salesorder/getsalesorder?order_number={order_number}"
