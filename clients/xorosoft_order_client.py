@@ -57,7 +57,7 @@ class XorosoftOrderClient:
     # en el campo ItemNumber. Cantidad esta en el campo Qty 
     
     def get_asns(self):
-        url = f'{self.BASE_URL}/api/xerp/asn/getasn?created_at_min=03/10/2026 12:44:27 PM'
+        url = f'{self.BASE_URL}/api/xerp/asn/getasn?status=received'
 
         response = requests.get(url, headers=self.auth_header)
         response.raise_for_status()

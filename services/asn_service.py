@@ -11,11 +11,6 @@ sys.path.insert(0, ROOT)
 
 FMT = "%m/%d/%Y %I:%M:%S %p"
 
-STATE_DIR = os.path.join(ROOT, "state")
-STATE_FILE = os.path.join(STATE_DIR, "sync_state.json")
-os.makedirs(STATE_DIR, exist_ok=True)
-
-
 class AsnSyncService:
 
     def __init__(self):
@@ -45,9 +40,6 @@ class AsnSyncService:
         
         # Comparo listado para ver faltantes en Mintsoft
         missing_asns = set(current_xoro_asns) - set(current_mint_asns)
-
-        print("Estos son los ASNs pendientes de migrar de XoroSoft a Mintsoft")
-        print(missing_asns)
 
         # Almaceno la info de los ASNs a crear en Mintsoft, es el Data de Xorosoft pero para los ASNs que importan
         asns_to_sync = [

@@ -12,8 +12,8 @@ def run_asn_sync():
     if asns_to_sync:
         print(f"Found {len(asns_to_sync)} in Xorosoft not in Mintsoft")
 
-        #print("Creating Missing ASNs")
-        #response = service.sync_asns(asns_to_sync)
+        print("Creating Missing ASNs")
+        response = service.sync_asns(asns_to_sync)
 
 
 
