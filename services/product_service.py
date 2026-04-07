@@ -3,8 +3,16 @@ import os
 import json
 import csv
 from datetime import datetime, timedelta
+
+ruta_raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+if ruta_raiz not in sys.path:
+    sys.path.append(ruta_raiz)
+
 from clients.xorosoft_product_client import XoroSoftProductClient
 from clients.mintsoft_product_client import MintsoftProductClient
+
+
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
@@ -28,8 +36,8 @@ class ProductSyncService:
         current_page = 1
 
         now = datetime.now()
-        now_minus_1h = now - timedelta(hours=1)
-        update_time = now_minus_1h.strftime("%m/%d/%Y %I:%M:%S %p")
+        now_minus_2h = now - timedelta(hours=18)
+        update_time = now_minus_2h.strftime("%m/%d/%Y %I:%M:%S %p")
 
         while True:
             print(f"Consultando pagina {current_page}")
@@ -111,5 +119,3 @@ class ProductSyncService:
         print(response)
     
         return None
-
-

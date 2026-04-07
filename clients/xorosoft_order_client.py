@@ -56,8 +56,11 @@ class XorosoftOrderClient:
     # Cada item de la orden esta dentro de SoEstimateItemLineArr, array de {},
     # en el campo ItemNumber. Cantidad esta en el campo Qty 
     
-    def get_asns(self):
-        url = f'{self.BASE_URL}/api/xerp/asn/getasn?status=received'
+    def get_asns(self, params):
+        url = f'{self.BASE_URL}/api/xerp/asn/getasn?created_at_min={params.get("CreatedAtMin")}'
+
+        if params.get("StatusId"):
+            url += f"&ASNStatusId={params.get("StatusId")}"
 
         response = requests.get(url, headers=self.auth_header)
         response.raise_for_status()

@@ -20,7 +20,12 @@ class AsnSyncService:
 
     def check_missing_mint_asns(self):
         # Traigo ASNs de Mint y guardo el POReference
-        mintsoft_asns = self.mint_o.get_asns()
+        
+        params = {
+            "ClientId": 4
+        }
+
+        mintsoft_asns = self.mint_o.get_asns(params)
         current_mint_asns = []
         for asn in mintsoft_asns:
             POReference = asn.get("POReference")
@@ -49,7 +54,7 @@ class AsnSyncService:
 
         return asns_to_sync
     
-    def sync_asns(self, asns_to_sync: list):
+    def create_mint_asns(self, asns_to_sync: list):
         for asn in asns_to_sync:
             asn_info = asn.get("AsnHeaderData") # Info del ASN
 
@@ -86,20 +91,86 @@ class AsnSyncService:
             response.raise_for_status()
             
             return response
+    
+    def update_xoro_asn_status(self):
+        
+        # Consultamos ordenes de Mintsoft en Status COMPLETED
+        params_mint = {
+            "ClientId": 4,
+            "StatusId": 6 # Status Completed
+        }
+
+        mintsoft_completed_asns = self.mint_o.get_asns(params_mint)
+        current_mint_asns = []
+
+        for asn in mintsoft_completed_asns:
+            POReference = asn.get("POReference")
+            current_mint_asns.append(POReference)
+
+        # Consultamos ordenes de Xorosoft en Status COMPLETED
+        params_xoro = {
+            "CreatedAtMin": "03/30/2026 07:47:27 PM",
+            "StatusId": "Closed"
+        }
+
+        current_xoro_asns = []
+        xoro_asn_data = self.xoro.get_asns(params_xoro)
+        xoro_asns = xoro_asn_data["Data"]
+
+        for asn in xoro_asns:
+            asn_header_data = asn.get("AsnHeaderData")
+
+            asn_info = {
+                "POReference": asn_header_data.get("AsnNumber"),
+                "Status": asn_header_data.get("StatusName")
+            }
+
+            current_xoro_asns.append(asn_info)
+        
+        xoro_asns_to_update = set(current_mint_asns) - set(current_xoro_asns)
+
+        # Recibir esos ASNs
+            # Body {
+                # "AsnHeaderData":{
+                    # "AsnNumber":"MAIN-A000330",
+                    # "CloseASN":false
+                    # },
+                    # "AsnDetailLocationData":[
+                    # {
+                    # "ItemNumber":"BC",
+                    # "PONumber":"MAIN-P000538",
+                    # "ReceiveLocationName":"MAIN WAREHOUSE - LOCATION-3PL",
+                    # "QtyReceived":10
+                    # }
+                    # ]}
+
+        # Cerrar esos ASNs
+            # Body {
+                # "AsnHeaderData":{
+                #     "AsnNumber":"MAIN-A000330"
+                #     }
+                # }
+
+
+
+
+        
+
+        
         
     
 
-try:
-    client = AsnSyncService()
-    asns_to_sync = client.check_missing_mint_asns()
+# try:
+#     client = AsnSyncService()
+#     asns_to_sync = client.check_missing_mint_asns()
 
-    print("Sincronizando ASNs")
-    print(asns_to_sync)
-    #response = client.sync_asns(asns_to_sync)
-    #print(response.text)
+#     print("Sincronizando ASNs")
+#     print(asns_to_sync)
+#     response = client.create_mint_asns(asns_to_sync)
+#     print(response.text)
 
-except Exception as e:
-    print (e)
+# except Exception as e:
+#     print (e)
 
 
    

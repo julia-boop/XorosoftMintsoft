@@ -7,13 +7,13 @@ from services.order_service import OrderSyncService
 
 
 try:
-    print("Executing Product Sync")
-    run_product_sync()
+    #print("Executing Product Sync")
+    #run_product_sync()
 
     #service = OrderSyncService()
     #service.sync_all_orders()
-    #print("Executing ASN Sync")
-    #run_asn_sync()
+    print("Executing ASN Sync")
+    run_asn_sync()
 
     #print("Executing Order Sync")
     

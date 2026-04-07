@@ -53,8 +53,11 @@ class MintsoftOrderClient:
 
         return response.json()
     
-    def get_asns(self):
-        url = f"{self.BASE_URL}/api/ASN/List?ClientId=4"
+    def get_asns(self, params):
+        url = f"{self.BASE_URL}/api/ASN/List?ClientId={params.get("ClientId")}"
+
+        if params.get("StatusId"):
+            url += f"&ASNStatusId={params.get("StatusId")}"
 
         response = requests.get(url, headers=self._headers())
         response.raise_for_status()

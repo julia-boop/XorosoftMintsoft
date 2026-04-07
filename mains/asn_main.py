@@ -6,14 +6,17 @@ from services.asn_service import AsnSyncService
 service = AsnSyncService()
 
 def run_asn_sync():
-    print("Checking for missing ASNs in Mintsoft")
+    #print("Checking for missing ASNs in Mintsoft")
     asns_to_sync = service.check_missing_mint_asns()
 
-    if asns_to_sync:
-        print(f"Found {len(asns_to_sync)} in Xorosoft not in Mintsoft")
+    response = service.update_xoro_asn_status()
+    print(response)
 
-        print("Creating Missing ASNs")
-        response = service.sync_asns(asns_to_sync)
+    if asns_to_sync:
+        print(f"Found {len(asns_to_sync)} ASN in Xorosoft not in Mintsoft")
+
+        #print("Creating Missing ASNs")
+        #response = service.create_mint_asns(asns_to_sync)
 
 
 
