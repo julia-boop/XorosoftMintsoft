@@ -1,6 +1,6 @@
 import sys
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from clients.db_client import DatabaseClient
 from services.product_service import ProductSyncService
 
@@ -61,7 +61,7 @@ def run_product_sync():
         print(f"Created: {created}, Updated: {updated}")
     
     else:
-        print(f"No new/updated products as of {datetime.now()}")
+        print(f"No new/updated products as of {datetime.now() - timedelta(hours=3)}")
 
 
 
