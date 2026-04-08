@@ -39,7 +39,7 @@ def run_product_sync():
                 has_changed = (
                     str(item.get("Upc")).strip() != str(current_db_item.get("upc")).strip() or
                     float(item.get("Price", 0)) != float(current_db_item.get("price", 0)) or
-                    item.get("Description") != current_db_item.get("description") or
+                    item.get("Name") != current_db_item.get("name") or
                     item.get("ImageURL") != current_db_item.get("image_url")
                 )
                 
