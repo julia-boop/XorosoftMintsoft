@@ -53,7 +53,7 @@ def run_product_sync():
                     print(f'SKU {item.get("SKU")} already exists in Mintsoft, there were no relevant updates to it')
                 
                 # Tiempo entre ordenes para no saturar prints en Railway
-                time.sleep(0.5)
+                time.sleep(0.01)
 
         db_service.log_product_sync(cursor, created, updated)
 

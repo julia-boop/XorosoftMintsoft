@@ -1,7 +1,5 @@
 import sys
 import os
-import json
-import csv
 from datetime import datetime, timedelta
 from clients.xorosoft_product_client import XoroSoftProductClient
 from clients.mintsoft_product_client import MintsoftProductClient
@@ -27,8 +25,8 @@ class ProductSyncService:
         current_page = 1
 
         now = datetime.now()
-        now_minus_3h = now - timedelta(hours=20)
-        update_time = now_minus_3h.strftime("%m/%d/%Y %I:%M:%S %p")
+        now_minus_12h = now - timedelta(hours=12)
+        update_time = now_minus_12h.strftime("%m/%d/%Y %I:%M:%S %p")
         print(update_time)
 
         while True:
