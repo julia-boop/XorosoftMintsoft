@@ -1,6 +1,5 @@
-import sys
-import os
 from datetime import datetime, timedelta
+import time
 from clients.db_client import DatabaseClient
 from services.product_service import ProductSyncService
 
@@ -52,6 +51,9 @@ def run_product_sync():
                 
                 else:
                     print(f'SKU {item.get("SKU")} already exists in Mintsoft, there were no relevant updates to it')
+                
+                # Tiempo entre ordenes para no saturar prints en Railway
+                time.sleep(0.5)
 
         db_service.log_product_sync(cursor, created, updated)
 

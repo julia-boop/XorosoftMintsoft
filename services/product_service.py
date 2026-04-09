@@ -27,7 +27,7 @@ class ProductSyncService:
         current_page = 1
 
         now = datetime.now()
-        now_minus_3h = now - timedelta(hours=17)
+        now_minus_3h = now - timedelta(hours=20)
         update_time = now_minus_3h.strftime("%m/%d/%Y %I:%M:%S %p")
         print(update_time)
 
