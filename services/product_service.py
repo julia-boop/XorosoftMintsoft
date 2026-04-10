@@ -25,8 +25,8 @@ class ProductSyncService:
         current_page = 1
 
         now = datetime.now()
-        now_minus_12h = now - timedelta(hours=12)
-        update_time = now_minus_12h.strftime("%m/%d/%Y %I:%M:%S %p")
+        now_minus_10h = now - timedelta(hours=10)
+        update_time = now_minus_10h.strftime("%m/%d/%Y %I:%M:%S %p")
         print(update_time)
 
         while True:
